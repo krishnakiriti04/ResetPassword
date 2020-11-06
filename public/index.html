@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        #codediv,
+        #setnewpassword,
+        #submitcode,
+        #newpassworddiv {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="containerjustify-content-center col-6">
+                <form onsubmit="register();return false;">
+                    <fieldset>
+                        <legend>
+                            <h2>Register</h2>
+                        </legend>
+                        <div class="form-group">
+                            <label for="name">Username</label>
+                            <input type="text" name="name" id="name" class="form-control col-6" placeholder="username" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <input type="password" name="password" id="password" class="form-control col-6" placeholder="password" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" name="email" id="email" class="form-control col-6" placeholder="E-mail" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone</label>
+                            <input type="tel" name="phone" id="phone" class="form-control col-6" placeholder="Phone Number" required>
+                        </div>
+                        <div>
+                            <input type="submit" value="Sign Up" class="btn btn-success">
+                        </div>
+
+                    </fieldset>
+                </form>
+            </div>
+            <div class="col-6">
+                <form onsubmit="resetpassword();return false;">
+                    <fieldset>
+                        <legend>
+                            <h2 class='text-secondary'>Reset Password</h2>
+                        </legend>
+                        <div class="form-group" id="divemail">
+                            <label for="confirmemail">Email</label>
+                            <input type="email" name="confirmemail" id="confirmemail" placeholder="Email" class="form-control" required>
+                            <small class="text-muted">If registered, we will send a confirmation mail to the above email</small>
+                        </div>
+                        <div class="form-group" id="codediv">
+                            <label for="key">Enter the Code</label>
+                            <input type="text" name="key" id="key" placeholder="Code" class="form-control col-4">
+                        </div>
+                        <div id="newpassworddiv">
+                            <div class="form-group">
+                                <label for="newpwdemail">Email</label>
+                                <input type="email" name="newpwdemail" id="newpwdemail" placeholder="Confirm E-mail" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="newpassword">New Password</label>
+                                <input type="password" name="newpassword" id="newpassword" placeholder="New Password" class="form-control">
+                            </div>
+                        </div>
+
+                        <div>
+                            <div id="sendmail">
+                                <input type="submit" value="Send Email" class="btn btn-info">
+                            </div>
+                            <div id="submitcode">
+                                <input type="button" value="Submit code" class="btn btn-info" id="code" onclick="codecheck()">
+                            </div>
+                            <div id="setnewpassword">
+                                <input type="button" value="Reset Password" class="btn btn-info" id="reset" onclick="changepassword()">
+                            </div>
+                        </div>
+
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+    <script src="login.js"></script>
+</body>
+
+</html>
