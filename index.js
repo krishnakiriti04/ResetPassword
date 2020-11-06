@@ -14,12 +14,12 @@ const dburl = process.env.DB_URL || "mongodb://localhost:27017";
 const port = process.env.PORT || 4000;
 
 //middle ware
-app.use(express.static(path.join(__dirname, 'public')))
+//app.use(express.static(path.join(__dirname, 'public')))
 app.use(cors());
 app.use(bodyparser.json())
 
 app.get('/', async(req, res) => {
-    res.send("Welcome to main page!!!")
+    res.send("<h1>Welcome to the page</h1>");
 })
 
 
@@ -105,7 +105,7 @@ app.post('/code', async(req, res) => {
 })
 
 app.put('/resetpassword', async(req, res) => {
-    let connection = await client.connect(dburl);
+    let connection = await client.connect(dburl, { useUnifiedTopology: true });
     let db = connection.db("login");
     console.log(req.body);
     let salt = await bcrypt.genSalt(10);
