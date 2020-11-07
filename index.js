@@ -19,7 +19,7 @@ app.use(cors());
 app.use(bodyparser.json())
 
 app.get('/', async(req, res) => {
-    res.send("<h1>Welcome to the page</h1>");
+    res.send("Welcome to the page");
 })
 
 
