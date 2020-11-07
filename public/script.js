@@ -7,7 +7,7 @@ async function register() {
         phone: document.getElementById('phone').value
     }
 
-    fetch('http://localhost:4000/register', {
+    fetch('https://zen-resetpassword.herokuapp.com/register', {
             method: "POST",
             body: JSON.stringify(data),
             headers: {

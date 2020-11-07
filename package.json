@@ -25,5 +25,8 @@
         "express": "^4.17.1",
         "mongodb": "^3.6.3",
         "nodemailer": "^6.4.15"
+    },
+    "engines": {
+        "node": "12.18.3"
     }
 }
