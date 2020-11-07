@@ -120,4 +120,4 @@ app.put('/resetpassword', async(req, res) => {
     }
 })
 
-app.listen(port, () => console.log("Server started!!!"));
+app.listen(port, () => console.log("Server started at port 4000!!!"));
