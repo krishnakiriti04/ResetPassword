@@ -12,7 +12,7 @@ async function resetpassword() {
         keytomail: macthingkey
     };
 
-    fetch("https://zen-resetpassword.herokuapp.com/sendemail", {
+    fetch("https://cors-anywhere.herokuapp.com/https://zen-resetpassword.herokuapp.com/sendemail", {
             method: "POST",
             body: JSON.stringify(data),
             headers: {
