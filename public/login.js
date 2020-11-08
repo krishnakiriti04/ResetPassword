@@ -11,15 +11,19 @@ async function resetpassword() {
         email: document.getElementById('confirmemail').value,
         keytomail: macthingkey
     };
+    try {
+        fetch("https://zen-resetpassword.herokuapp.com/sendemail", {
+                method: "POST",
+                body: JSON.stringify(data),
+                headers: {
+                    'content-Type': "application/json"
+                }
+            }).then(res => alert("Mail Sent!!"))
+            .catch(err => console.log("error : " + err))
+    } catch (err) {
+        console.log(err);
+    }
 
-    fetch("https://cors-anywhere.herokuapp.com/https://zen-resetpassword.herokuapp.com/sendemail", {
-            method: "POST",
-            body: JSON.stringify(data),
-            headers: {
-                'content-Type': "application/json"
-            }
-        }).then(res => alert("Mail Sent!!"))
-        .catch(err => console.log("error : " + err))
 }
 
 async function codecheck() {
