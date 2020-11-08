@@ -12,18 +12,17 @@ async function resetpassword() {
         keytomail: macthingkey
     };
     try {
-        fetch("https://resetpassword-zen.herokuapp.com/sendemail", {
-                method: "POST",
-                body: JSON.stringify(data),
-                headers: {
-                    'content-Type': "application/json"
-                }
-            }).then(res => alert("Mail Sent!!"))
-            .catch(err => console.log("error : " + err))
+        let email = await fetch("https://resetpassword-zen.herokuapp.com/sendemail", {
+            method: "POST",
+            body: JSON.stringify(data),
+            headers: {
+                'content-Type': "application/json"
+            }
+        })
+        alert("Mail Sent!!");
     } catch (err) {
         console.log(err);
     }
-
 }
 
 async function codecheck() {

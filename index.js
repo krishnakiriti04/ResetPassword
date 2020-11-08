@@ -105,7 +105,8 @@ app.post('/code', async(req, res) => {
     let connection = await client.connect(dburl);
     let db = connection.db("login");
     let ismatching = await db.collection('reset').findOne({ "keytomail": req.body.code });
-    if (ismatching) {
+    console.log(ismatching);
+    if (ismatching !== null) {
         res.status(200).json({ message: "success" });
     } else {
         res.status(400).json({ message: "string did not match" });
