@@ -6,12 +6,14 @@ const cors = require('cors');
 const bodyparser = require('body-parser');
 const dotenv = require('dotenv').config();
 const mongodb = require('mongodb');
+const ejs = require('ejs');
 const client = mongodb.MongoClient;
 
 
 const app = express();
 const dburl = process.env.DB_URL || "mongodb://localhost:27017";
 const port = process.env.PORT || 4000;
+
 
 //middle ware
 //app.use(express.static(path.join(__dirname, 'public')))
