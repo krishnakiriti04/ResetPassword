@@ -6,7 +6,6 @@ const cors = require('cors');
 const bodyparser = require('body-parser');
 const dotenv = require('dotenv').config();
 const mongodb = require('mongodb');
-const ejs = require('ejs');
 const client = mongodb.MongoClient;
 
 
@@ -16,7 +15,7 @@ const port = process.env.PORT || 4000;
 
 
 //middle ware
-//app.use(express.static(path.join(__dirname, 'public')))
+app.use(express.static(path.join(__dirname, 'public')))
 app.use(cors());
 app.use(bodyparser.json())
 
@@ -28,7 +27,7 @@ app.options('/', function(req, res) {
 });
 
 app.get('/', async(req, res) => {
-    res.send("Welcome to the page");
+    res.status(200).sendFile(path.join(__dirname, "public", "index.html"))
 })
 
 

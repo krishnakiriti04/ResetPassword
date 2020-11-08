@@ -36,7 +36,7 @@ async function codecheck() {
             method: "POST",
             body: JSON.stringify(data),
             headers: {
-                'content-Type': "application/json"
+                'Content-Type': 'application/json'
             }
         }).then(res => {
             if (res.status == 200) {
