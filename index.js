@@ -19,7 +19,7 @@ app.use(express.static(path.join(__dirname, 'public')))
 app.use(cors());
 app.use(bodyparser.json())
 
-app.options('/', function(req, res) {
+app.options('/sendemail', function(req, res) {
     res.setHeader("Access-Control-Allow-Origin", "*");
     res.setHeader('Access-Control-Allow-Methods', '*');
     res.setHeader("Access-Control-Allow-Headers", "*");

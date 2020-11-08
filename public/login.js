@@ -11,12 +11,13 @@ async function resetpassword() {
         email: document.getElementById('confirmemail').value,
         keytomail: macthingkey
     };
+
     try {
         let email = await fetch("https://resetpassword-zen.herokuapp.com/sendemail", {
             method: "POST",
             body: JSON.stringify(data),
             headers: {
-                'content-Type': "application/json"
+                'Content-Type': "application/json"
             }
         })
         alert("Mail Sent!!");
@@ -26,7 +27,6 @@ async function resetpassword() {
 }
 
 async function codecheck() {
-
     let data = {
         code: document.getElementById('key').value
     }
@@ -49,7 +49,6 @@ async function codecheck() {
             } else {
                 alert("Verification Unsuccessful")
             }
-
         })
         .catch(err => console.log(err))
 }
@@ -61,7 +60,6 @@ async function changepassword() {
         "email": email,
         'password': newpassword
     }
-
     fetch('https://resetpassword-zen.herokuapp.com/resetpassword', {
         method: "PUT",
         body: JSON.stringify(data),
@@ -75,7 +73,6 @@ async function changepassword() {
             alert("Password updation failed")
         }
     })
-
 }
 
 function generateRandomString() {
