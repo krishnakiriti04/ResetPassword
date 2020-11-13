@@ -13,7 +13,7 @@ async function resetpassword() {
     };
 
     try {
-        let email = await fetch("http://localhost:4000/sendemail", {
+        let email = await fetch("https://resetpassword-zen.herokuapp.com/sendemail", {
             method: "POST",
             body: JSON.stringify(data),
             headers: {
