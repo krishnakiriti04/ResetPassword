@@ -27,7 +27,7 @@ async function resetpassword() {
             window.location.href = "http://localhost:4000/"
         }
     } catch (err) {
-        console.log(err);
+        console.log("mail function  :", err);
     }
 }
 
@@ -55,7 +55,7 @@ async function codecheck() {
                 alert("Verification Unsuccessful")
             }
         })
-        .catch(err => console.log(err))
+        .catch(err => console.log("Verification function : ", err))
 }
 
 async function changepassword() {

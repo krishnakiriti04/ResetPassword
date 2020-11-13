@@ -3,7 +3,6 @@ async function login() {
         email: document.getElementById('loginName').value,
         password: document.getElementById('loginPassword').value
     }
-    console.log("came here");
     fetch('http://localhost:4000/login', {
             method: "POST",
             body: JSON.stringify(data),
@@ -14,12 +13,12 @@ async function login() {
             if (res.status == 200) {
                 alert("Login successful");
                 document.getElementById('loginForm').reset();
-            } else {
-                alert("Login Failed");
+            } else if (res.status == 400 || res.status == 401) {
+                alert("Invalid Credentials");
                 document.getElementById('loginForm').reset();
             }
         })
-        .catch(err => console.log("Login func", err))
+        .catch(err => console.log("Login function : ", err))
 
 }
 
