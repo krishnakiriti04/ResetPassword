@@ -111,7 +111,7 @@ app.post('/sendemail', async(req, res) => {
 
             transporter.sendMail(mailOptions, (err, info) => {
                 if (err) {
-                    console.log("Error occuries while sending mail");
+                    res.status(400).json({ message: "Error occured while sending mail" })
                 } else {
                     res.status(200).json({ message: "Email sent !!" })
                 }
@@ -122,6 +122,7 @@ app.post('/sendemail', async(req, res) => {
         }
     } catch (error) {
         console.log(error);
+        res.status(401).json({ message: "Error while sending mail !!" })
     }
 })
 
@@ -130,7 +131,6 @@ app.post('/code', async(req, res) => {
     let connection = await client.connect(dburl);
     let db = connection.db("login");
     let ismatching = await db.collection('reset').findOne({ "keytomail": req.body.code });
-    console.log(ismatching);
     if (ismatching !== null) {
         res.status(200).json({ message: "success" });
     } else {
@@ -142,18 +142,20 @@ app.post('/code', async(req, res) => {
 app.put('/resetpassword', async(req, res) => {
     let connection = await client.connect(dburl, { useUnifiedTopology: true });
     let db = connection.db("login");
-    console.log(req.body);
-    let salt = await bcrypt.genSalt(10);
-    let hash = await bcrypt.hash(req.body.password, salt);
-    req.body.password = hash;
-    console.log(hash);
-    let updatepassword = await db.collection("users").updateOne({ "email": req.body.email }, { $set: { "password": req.body.password } });
-    if (updatepassword) {
-        res.status(200).json({ message: "Password Updated successfully" })
-    } else {
-        res.status(400).json({ message: "Password Updation failed" })
+    let isAvailable = await db.collection("users").findOne({ email: req.body.email });
+    if (isAvailable) {
+        let salt = await bcrypt.genSalt(10);
+        let hash = await bcrypt.hash(req.body.password, salt);
+        req.body.password = hash;
+        let updatepassword = await db.collection("users").updateOne({ "email": req.body.email }, { $set: { "password": req.body.password } });
+        if (updatepassword) {
+            res.status(200).json({ message: "Password Updated successfully" })
+        } else {
+            res.status(400).json({ message: "Password Updation failed" })
+        }
+        await connection.close();
     }
-    await connection.close();
+
 })
 
 app.listen(port, () => console.log("Server started at port 4000!!!"));

@@ -13,7 +13,7 @@ async function resetpassword() {
     };
 
     try {
-        let email = await fetch("http://localhost:4000/sendemail", {
+        let email = await fetch("https://resetpassword-zen.herokuapp.com/sendemail", {
             method: "POST",
             body: JSON.stringify(data),
             headers: {
@@ -24,7 +24,7 @@ async function resetpassword() {
             alert("Mail Sent!!");
         } else {
             alert("Couldn't send mail!!");
-            window.location.href = "http://localhost:4000/"
+            window.location.href = "https://resetpassword-zen.herokuapp.com/"
         }
     } catch (err) {
         console.log("mail function  :", err);
@@ -36,7 +36,7 @@ async function codecheck() {
         code: document.getElementById('key').value
     }
 
-    let fetchdata = fetch('http://localhost:4000/code', {
+    let fetchdata = fetch('https://resetpassword-zen.herokuapp.com/code', {
             method: "POST",
             body: JSON.stringify(data),
             headers: {
@@ -63,9 +63,9 @@ async function changepassword() {
     let email = document.getElementById('newpwdemail').value;
     let data = {
         "email": email,
-        'password': newpassword
+        "password": newpassword
     }
-    fetch('http://localhost:4000/resetpassword', {
+    fetch('https://resetpassword-zen.herokuapp.com/resetpassword', {
         method: "PUT",
         body: JSON.stringify(data),
         headers: {
@@ -74,12 +74,15 @@ async function changepassword() {
     }).then(res => {
         if (res.status == 200) {
             alert("Password updated!!");
-            window.location.href = "http://localhost:4000/"
+            window.location.href = "https://resetpassword-zen.herokuapp.com/"
+        } else if (res.status == 401) {
+            alert("Email doesn't exist !!");
         } else {
             alert("Password updation failed");
         }
-
-    })
+    }).catch(err) {
+        console.log("Update password function : ", err);
+    }
 }
 
 function generateRandomString() {
