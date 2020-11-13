@@ -111,18 +111,18 @@ app.post('/sendemail', async(req, res) => {
 
             transporter.sendMail(mailOptions, (err, info) => {
                 if (err) {
-                    res.status(400).json({ message: "Error occured while sending mail" })
+                    res.status(401).json({ message: "Error occured while sending mail" })
                 } else {
                     res.status(200).json({ message: "Email sent !!" })
                 }
             })
             await connection.close();
         } else {
-            res.status(400).json({ message: "User doesn't exist in data base!" })
+            res.status(402).json({ message: "User doesn't exist in data base!" })
         }
     } catch (error) {
         console.log(error);
-        res.status(401).json({ message: "Error while sending mail !!" })
+        res.status(400).json({ message: "Error while sending mail !!" })
     }
 })
 
@@ -154,6 +154,8 @@ app.put('/resetpassword', async(req, res) => {
             res.status(400).json({ message: "Password Updation failed" })
         }
         await connection.close();
+    } else {
+        res.status(401).json({ message: "Email doesn't exist" })
     }
 
 })

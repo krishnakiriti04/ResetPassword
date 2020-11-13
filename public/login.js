@@ -22,6 +22,12 @@ async function resetpassword() {
         })
         if (email.status === 200) {
             alert("Mail Sent!!");
+        } else if (email.status === 402) {
+            alert("User doesn't exist");
+            window.location.href = "https://resetpassword-zen.herokuapp.com/"
+        } else if (email.status === 401) {
+            alert("Error occured while sending email");
+            window.location.href = "https://resetpassword-zen.herokuapp.com/"
         } else {
             alert("Couldn't send mail!!");
             window.location.href = "https://resetpassword-zen.herokuapp.com/"
