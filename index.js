@@ -84,7 +84,7 @@ app.post('/sendemail', async(req, res) => {
     try {
         let connection = await client.connect(dburl);
         let db = connection.db("login");
-        let checkvalidity = await db.collection("users").findOne({ email: req.body.email })
+        let checkvalidity = await db.collection("users").findOne({ email: req.body.email });
         if (checkvalidity) {
             let data = await db.collection("reset").insertOne(req.body);
             let transporter = nodemailer.createTransport({
@@ -111,6 +111,7 @@ app.post('/sendemail', async(req, res) => {
 
             transporter.sendMail(mailOptions, (err, info) => {
                 if (err) {
+                    console.log(err);
                     res.status(401).json({ message: "Error occured while sending mail" })
                 } else {
                     res.status(200).json({ message: "Email sent !!" })
