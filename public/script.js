@@ -1,3 +1,41 @@
+async function login() {
+    let data = {
+        email: document.getElementById('loginName').value,
+        password: document.getElementById('loginPassword').value
+    }
+    console.log("came here");
+    fetch('http://localhost:4000/login', {
+            method: "POST",
+            body: JSON.stringify(data),
+            headers: {
+                'content-Type': "application/json"
+            }
+        }).then(res => {
+            if (res.status == 200) {
+                alert("Login successful");
+                document.getElementById('loginForm').reset();
+            } else {
+                alert("Login Failed");
+                document.getElementById('loginForm').reset();
+            }
+        })
+        .catch(err => console.log("Login func", err))
+
+}
+
+
+function signup() {
+    document.getElementById('loginDiv').style.display = "none";
+    document.getElementById('registerDiv').style.display = "block";
+    document.getElementById('resetDiv').style.display = "none";
+}
+
+function forgotpwd() {
+    document.getElementById('loginDiv').style.display = "none";
+    document.getElementById('registerDiv').style.display = "none";
+    document.getElementById('resetDiv').style.display = "block";
+}
+
 async function register() {
     //let matchkey = generateRandomString();
     let data = {
@@ -7,15 +45,25 @@ async function register() {
         phone: document.getElementById('phone').value
     }
 
-    fetch('https://resetpassword-zen.herokuapp.com/register', {
+    fetch('http://localhost:4000/register', {
             method: "POST",
             body: JSON.stringify(data),
             headers: {
                 'content-Type': "application/json"
             }
         }).then(res => {
-            alert("Registration successful");
-            location.reload();
+            if (res.status == 200) {
+                alert("Registration successful");
+                document.getElementById('signupForm').reset();
+
+                //after signup display login page again
+                document.getElementById('loginDiv').style.display = "block";
+                document.getElementById('registerDiv').style.display = "none";
+                document.getElementById('resetDiv').style.display = "none";
+            } else {
+                alert("Registration Failed");
+                document.getElementById('signupForm').reset();
+            }
         })
-        .catch(err => console.log(err))
+        .catch(err => console.log("registration function : ", err))
 }

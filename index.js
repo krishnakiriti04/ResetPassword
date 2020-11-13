@@ -30,8 +30,31 @@ app.get('/', async(req, res) => {
     res.status(200).sendFile(path.join(__dirname, "public", "index.html"))
 })
 
-
 //register
+app.get('/register', async(req, res) => {
+    res.status(200).redirect('/#register')
+})
+
+app.post('/login', async(req, res) => {
+    try {
+        let connection = await client.connect(dburl);
+        let db = connection.db('login');
+        let data = await db.collection('users').findOne({ email: req.body.email });
+        if (data) {
+            let compare = await bcrypt.compare(req.body.password, data.password);
+            if (compare) {
+                res.status(200).json({ message: "Login Success!!" });
+            } else {
+                res.status(400).json({ message: "Login Failed!!" });
+            }
+        }
+        await connection.close();
+    } catch (error) {
+        console.log('Login Error :' + error);
+    }
+})
+
+
 app.post('/register', async(req, res) => {
     try {
         let connection = await client.connect(dburl);
@@ -72,7 +95,7 @@ app.post('/sendemail', async(req, res) => {
 
             let mailOptions = {
                 from: "krishnakireeti.mamidi@gmail.com",
-                to: "krishchats024@gmail.com",
+                to: req.body.email,
                 subject: "Password reset",
                 html: `<div>
                 <h4>Hello ${checkvalidity.name},<h4>
@@ -80,7 +103,7 @@ app.post('/sendemail', async(req, res) => {
                 <p>Enter the code ${req.body.keytomail} in the webpage!!</p>
 
                 <p>Regards,
-                Mail reset team</p>
+                Password reset team</p>
                 </div>`
             }
 
@@ -91,7 +114,7 @@ app.post('/sendemail', async(req, res) => {
                     res.status(200).json({ message: "Email sent !!" })
                 }
             })
-
+            await connection.close();
         } else {
             res.status(400).json({ message: "User doesn't exist in data base!" })
         }
@@ -111,6 +134,7 @@ app.post('/code', async(req, res) => {
     } else {
         res.status(400).json({ message: "string did not match" });
     }
+    await connection.close();
 })
 
 app.put('/resetpassword', async(req, res) => {
@@ -127,6 +151,7 @@ app.put('/resetpassword', async(req, res) => {
     } else {
         res.status(400).json({ message: "Password Updation failed" })
     }
+    await connection.close();
 })
 
 app.listen(port, () => console.log("Server started at port 4000!!!"));

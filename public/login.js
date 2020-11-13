@@ -13,14 +13,19 @@ async function resetpassword() {
     };
 
     try {
-        let email = await fetch("https://resetpassword-zen.herokuapp.com/sendemail", {
+        let email = await fetch("http://localhost:4000/sendemail", {
             method: "POST",
             body: JSON.stringify(data),
             headers: {
                 'Content-Type': "application/json"
             }
         })
-        alert("Mail Sent!!");
+        if (email.status === 200) {
+            alert("Mail Sent!!");
+        } else {
+            alert("Couldn't send mail!!");
+            window.location.href = "http://localhost:4000/"
+        }
     } catch (err) {
         console.log(err);
     }
@@ -31,7 +36,7 @@ async function codecheck() {
         code: document.getElementById('key').value
     }
 
-    let fetchdata = fetch('https://resetpassword-zen.herokuapp.com/code', {
+    let fetchdata = fetch('http://localhost:4000/code', {
             method: "POST",
             body: JSON.stringify(data),
             headers: {
@@ -60,7 +65,7 @@ async function changepassword() {
         "email": email,
         'password': newpassword
     }
-    fetch('https://resetpassword-zen.herokuapp.com/resetpassword', {
+    fetch('http://localhost:4000/resetpassword', {
         method: "PUT",
         body: JSON.stringify(data),
         headers: {
@@ -78,4 +83,10 @@ async function changepassword() {
 function generateRandomString() {
     let str = Math.random().toString(36).substring(7);
     return str;
+}
+
+window.onload = () => {
+    document.getElementById('loginDiv').style.display = "block";
+    document.getElementById('registerDiv').style.display = "none";
+    document.getElementById('resetDiv').style.display = "none";
 }
