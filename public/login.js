@@ -37,25 +37,24 @@ async function codecheck() {
     }
 
     let fetchdata = fetch('https://resetpassword-zen.herokuapp.com/code', {
-            method: "POST",
-            body: JSON.stringify(data),
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        }).then(res => {
-            if (res.status == 200) {
-                document.getElementById('divemail').style.display = "none";
-                document.getElementById('codediv').style.display = "none";
-                document.getElementById('newpassworddiv').style.display = "block";
-                document.getElementById('submitcode').style.display = "none";
-                document.getElementById('setnewpassword').style.display = "block";
-                document.getElementById('sendmail').style.display = "none";
-                alert("Verification Successful")
-            } else {
-                alert("Verification Unsuccessful")
-            }
-        })
-        .catch(err => console.log("Verification function : ", err))
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    }).then(res => {
+        if (res.status == 200) {
+            document.getElementById('divemail').style.display = "none";
+            document.getElementById('codediv').style.display = "none";
+            document.getElementById('newpassworddiv').style.display = "block";
+            document.getElementById('submitcode').style.display = "none";
+            document.getElementById('setnewpassword').style.display = "block";
+            document.getElementById('sendmail').style.display = "none";
+            alert("Verification Successful")
+        } else {
+            alert("Verification Unsuccessful")
+        }
+    }).catch(err => console.log("Verification function : " + err))
 }
 
 async function changepassword() {
@@ -80,9 +79,7 @@ async function changepassword() {
         } else {
             alert("Password updation failed");
         }
-    }).catch(err) {
-        console.log("Update password function : ", err);
-    }
+    }).catch(err => console.log("Update password function : ", err));
 }
 
 function generateRandomString() {
