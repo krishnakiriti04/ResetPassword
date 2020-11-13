@@ -98,12 +98,12 @@ app.post('/sendemail', async(req, res) => {
                 to: req.body.email,
                 subject: "Password reset",
                 html: `<div>
-                <h4>Hello ${checkvalidity.name},<h4>
+                <h4>Hello ${checkvalidity.name},</h4>
 
                 <p>Enter the code ${req.body.keytomail} in the webpage!!</p>
 
-                <p>Regards,
-                Password reset team</p>
+                <p>Regards</p>,
+                <p>Password reset team</p>
                 </div>`
             }
 

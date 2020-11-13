@@ -73,10 +73,12 @@ async function changepassword() {
         }
     }).then(res => {
         if (res.status == 200) {
-            alert("Password updated successfully")
+            alert("Password updated!!");
+            window.location.href = "http://localhost:4000/"
         } else {
-            alert("Password updation failed")
+            alert("Password updation failed");
         }
+
     })
 }
 
